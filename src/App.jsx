@@ -1,3 +1,5 @@
+const SOURCE_REPO_URL = 'https://github.com/michaelsam94/MailCal'
+
 const nav = [
   { href: '/', label: 'Home' },
   { href: '/privacy', label: 'Privacy' },
@@ -23,7 +25,24 @@ function Layout({ children }) {
         </nav>
       </header>
       <main className="content">{children}</main>
-      <footer className="footer">Contact: support@mailcal.site</footer>
+      <footer className="footer">
+        <p>
+          MailCal is open source under the{' '}
+          <a
+            href="https://opensource.org/licenses/MIT"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            MIT License
+          </a>
+          — transparent, inspectable code.{' '}
+          <a href={SOURCE_REPO_URL} target="_blank" rel="noopener noreferrer">
+            View the repository on GitHub
+          </a>
+          .
+        </p>
+        <p>Contact: support@mailcal.site</p>
+      </footer>
     </div>
   )
 }
@@ -41,6 +60,14 @@ function HomePage() {
         <li>Extracts date, time, meeting links, and attendees</li>
         <li>Lets users review and add events to calendar</li>
       </ul>
+      <p>
+        MailCal is an open source app released under the MIT License, so how it
+        works is transparent and you can review or contribute to the code on{' '}
+        <a href={SOURCE_REPO_URL} target="_blank" rel="noopener noreferrer">
+          GitHub
+        </a>
+        .
+      </p>
     </Layout>
   )
 }
