@@ -23,7 +23,7 @@ function Layout({ children }) {
         </nav>
       </header>
       <main className="content">{children}</main>
-      <footer className="footer">Contact: support@mailcal.app</footer>
+      <footer className="footer">Contact: michaelsam00@yahoo.com</footer>
     </div>
   )
 }
@@ -79,7 +79,7 @@ function TermsPage() {
         <li>Service availability is not guaranteed at all times</li>
         <li>Liability is limited to the extent permitted by law</li>
       </ul>
-      <p>For questions, contact: support@mailcal.app</p>
+      <p>For questions, contact: michaelsam00@yahoo.com</p>
     </Layout>
   )
 }
