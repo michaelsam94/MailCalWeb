@@ -75,19 +75,165 @@ function HomePage() {
 function PrivacyPage() {
   return (
     <Layout>
-      <h2>Privacy Policy</h2>
-      <p>
-        MailCal accesses Gmail data only to detect event-related information and
-        help users create calendar events.
-      </p>
-      <ul>
-        <li>Data accessed: email metadata and content required for event parsing</li>
-        <li>Purpose: extract event date, time, links, and attendees</li>
-        <li>Storage: processed data is stored locally on user device</li>
-        <li>Sharing: MailCal does not sell Gmail data to third parties</li>
-        <li>Control: users can sign out and revoke access anytime</li>
-      </ul>
-      <p>Last updated: April 30, 2026</p>
+      <article className="legal-doc">
+        <h2>Privacy Policy</h2>
+        <p className="legal-meta">
+          <strong>MailCal</strong> — Last updated: May 1, 2026
+        </p>
+        <p>
+          This Privacy Policy describes how <strong>MailCal</strong> (&quot;the
+          application,&quot; &quot;we,&quot; &quot;us&quot;) accesses, uses,
+          stores, and shares Google user data when you use our application.
+          MailCal is developed by <strong>Michael Sam</strong> and is open
+          source; the code is available on{' '}
+          <a href={SOURCE_REPO_URL} target="_blank" rel="noopener noreferrer">
+            GitHub
+          </a>
+          . For questions about this policy or your data, contact{' '}
+          <a href="mailto:support@mailcal.site">support@mailcal.site</a>.
+        </p>
+
+        <h3>1. Google user data we collect or access</h3>
+        <p>
+          With your consent and only as needed to operate MailCal, we access the
+          following categories of <strong>Google user data</strong>:
+        </p>
+        <ul>
+          <li>
+            <strong>Account and profile information</strong> from Google Sign-In,
+            such as your Google account identifier, email address, and display
+            name, so we can identify your session and show who is signed in.
+          </li>
+          <li>
+            <strong>Gmail content and metadata</strong> using the permission scope{' '}
+            <code>https://www.googleapis.com/auth/gmail.readonly</code>. This
+            includes message identifiers, headers (for example, subject, senders,
+            dates), message bodies, and attachments or parts of messages when
+            needed to detect calendar-related information (for example, ICS
+            files or invitation text).
+          </li>
+        </ul>
+        <p>
+          MailCal does not request permission to send, modify, or delete your
+          Gmail messages; access is read-only for the features described below.
+        </p>
+
+        <h3>2. How we use Google user data</h3>
+        <p>
+          We use Google user data <strong>only</strong> to provide and improve
+          user-facing features of MailCal, specifically to:
+        </p>
+        <ul>
+          <li>
+            Sync and read messages from your Gmail mailbox so the app can find
+            emails that may contain meetings or events.
+          </li>
+          <li>
+            Parse those messages to extract event details (such as date, time,
+            title, location, meeting links, and attendee hints) and present them
+            for your review.
+          </li>
+          <li>
+            Let you add extracted events to calendars on your device, when you
+            choose to do so.
+          </li>
+        </ul>
+        <p>
+          We <strong>do not</strong> use Google user data for: targeted
+          advertising, personalized or interest-based advertising, retargeting,
+          user advertisements, selling data to data brokers, providing data to
+          information resellers, credit-worthiness or lending decisions, building
+          standalone marketing databases, or <strong>training artificial
+          intelligence or machine learning models</strong> on Google user data.
+          On-device processing used solely to power features you see in the app
+          (for example, extraction helpers) is part of providing the
+          application&apos;s functionality, not model training for unrelated
+          purposes.
+        </p>
+
+        <h3>3. Storage and hosting</h3>
+        <p>
+          MailCal is designed to work <strong>on your device</strong>. Gmail
+          data and parsed event information used by the app are stored locally
+          (for example, in app storage on your phone or tablet) so you can
+          review items offline. We do not operate a MailCal service that uploads
+          your Gmail contents to our servers for processing.
+        </p>
+
+        <h3>4. Sharing, transfer, and disclosure</h3>
+        <p>
+          We <strong>do not sell</strong> Google user data to anyone. We do not
+          transfer Google user data to third parties for targeted advertising,
+          selling to data brokers, providing to information resellers,
+          credit-worthiness or lending purposes, or the advertising uses listed
+          above.
+        </p>
+        <p>
+          Google processes OAuth sign-in and API requests according to{' '}
+          <a
+            href="https://policies.google.com/privacy"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Google&apos;s privacy policies
+          </a>
+          ; data necessarily flows between your device and Google&apos;s systems
+          when you use Gmail through your authorized account. We do not disclose
+          your Gmail content to unrelated third parties for their own purposes.
+          If we ever relied on subprocessors strictly to operate essential
+          infrastructure (for example, if we introduced optional cloud backup in
+          the future), we would describe that here and limit use to providing or
+          improving the application&apos;s functionality.
+        </p>
+
+        <h3>5. Security</h3>
+        <p>
+          We implement reasonable safeguards appropriate to an on-device app,
+          including storing credentials and local data using platform security
+          features where available, requiring Google authentication for API
+          access, and honoring read-only Gmail access. No method of storage or
+          transmission is perfectly secure; you should protect your device and use
+          Google&apos;s account security tools (such as revoking app access)
+          if needed.
+        </p>
+
+        <h3>6. Data retention and deletion</h3>
+        <p>
+          Data retained by MailCal on your device is kept only as long as needed
+          for the app to function—for example, until you clear app data,
+          uninstall the application, or delete locally stored messages and parsed
+          events within the app where supported.
+        </p>
+        <p>
+          You may <strong>disconnect MailCal from your Google account</strong> at
+          any time by signing out in the app and by removing MailCal&apos;s
+          access under your Google Account&apos;s security settings for
+          third-party access. After access is revoked, MailCal will not fetch new
+          Gmail data. Locally stored data may remain until you remove it or
+          uninstall the app.
+        </p>
+        <p>
+          To request help deleting information or to exercise privacy rights,
+          contact <a href="mailto:support@mailcal.site">support@mailcal.site</a>.
+        </p>
+
+        <h3>7. Changes to this policy</h3>
+        <p>
+          We may update this Privacy Policy when our practices or Google&apos;s
+          requirements change. If we materially change how MailCal uses Google
+          user data, we will update this page and revise the &quot;Last
+          updated&quot; date. For OAuth consent, ensure the privacy policy URL on
+          your Google Cloud OAuth consent screen matches this page. Continued use
+          of the app after changes means you acknowledge the updated policy where
+          applicable.
+        </p>
+
+        <h3>8. Contact</h3>
+        <p>
+          <strong>MailCal</strong> — Developer: Michael Sam —{' '}
+          <a href="mailto:support@mailcal.site">support@mailcal.site</a>
+        </p>
+      </article>
     </Layout>
   )
 }
