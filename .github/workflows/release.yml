@@ -1,0 +1,81 @@
+# Push any tag → npm build → zip dist/ → GitHub Release with zip attached.
+# Actions → "Run workflow" builds and uploads the zip as an artifact only (no Release).
+#
+# Commit and push this file before tagging.
+
+name: Release
+
+on:
+  push:
+    tags:
+      - "*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install & build
+        run: npm ci && npm run build
+
+      - name: Package dist
+        id: pack
+        env:
+          GITHUB_REF: ${{ github.ref }}
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+          GITHUB_RUN_NUMBER: ${{ github.run_number }}
+        run: |
+          set -euo pipefail
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+            TAG="$GITHUB_REF_NAME"
+            case "$TAG" in
+              v*) VERSION="${TAG#v}" ;;
+              *) VERSION="$TAG" ;;
+            esac
+            ZIP_NAME="mailcalweb-${VERSION}.zip"
+            echo "is_tag=1" >> "$GITHUB_OUTPUT"
+          else
+            ZIP_NAME="mailcalweb-manual-${GITHUB_RUN_NUMBER}.zip"
+            echo "is_tag=0" >> "$GITHUB_OUTPUT"
+          fi
+          (cd dist && zip -r "../${ZIP_NAME}" .)
+          echo "zip=${ZIP_NAME}" >> "$GITHUB_OUTPUT"
+          ls -la "$ZIP_NAME"
+
+      - name: Upload zip (workflow artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: mailcalweb-${{ github.run_id }}
+          path: ${{ steps.pack.outputs.zip }}
+          if-no-files-found: error
+
+      - name: Create GitHub Release
+        if: steps.pack.outputs.is_tag == '1'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: MailCalWeb ${{ github.ref_name }}
+          make_latest: true
+          allowUpdates: true
+          fail_on_unmatched_files: true
+          body: |
+            Static build for `${{ github.ref_name }}`.
+
+            Download the zip and deploy the extracted files to any static host.
+          files: ${{ steps.pack.outputs.zip }}
